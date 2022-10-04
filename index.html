@@ -35,12 +35,14 @@
             font-weight: bolder;
             font-size: 14px;
             margin-block-end: 15px;
-            margin-inline-start: 10px;
+            margin-inline-start: 20px;
             cursor: pointer;
+            
         }
         .style-main {
         display:flex;
-        gap: 10px;
+        flex-wrap: wrap;
+        gap: 20px;
         justify-content: center;
         margin-block-end: 30px;
       }
@@ -62,6 +64,7 @@
             font-size: 14px;
             font-weight: bold;
             cursor: pointer;
+         
         }
          img{
             width: 100%;
@@ -81,6 +84,9 @@
         .style-main article:hover{
             transform: scale(1.2);
         }
+        #btn:hover{
+            transform: scale(1.5);
+        }
 
     </style>
 </head>
@@ -94,7 +100,7 @@
     </section>
     <h2>Cats favorites</h2>
     <section class="favorites-cats style-main">
-    </section>
+    </section>  
 </main>
 
     <script src="./main.js"></script>
