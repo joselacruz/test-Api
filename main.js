@@ -1,15 +1,16 @@
 const API_URL_RANDOM =
-  "https://api.thecatapi.com/v1/images/search?limit=3&api_key=live_Tsb8bwOJBKDNjjdJc2XKB3i2c3rOOo2VU6CpHknnj23xp5vm4j8mzHCCINKY2A5f";
+  "https://api.thecatapi.com/v1/images/search?limit=3&";
 
-const API_URL_FAVORITES =
-  "https://api.thecatapi.com/v1/favourites?&api_key=live_Tsb8bwOJBKDNjjdJc2XKB3i2c3rOOo2VU6CpHknnj23xp5vm4j8mzHCCINKY2A5f";
+const API_URL_FAVORITES ="https://api.thecatapi.com/v1/favourites";
 
-const API_URL_DELETE = (id) => ` https://api.thecatapi.com/v1/favourites/${id}?api_key=live_Tsb8bwOJBKDNjjdJc2XKB3i2c3rOOo2VU6CpHknnj23xp5vm4j8mzHCCINKY2A5f`;
+const API_URL_UPLOAD = "https://api.thecatapi.com/v1/images/upload";
+const API_URL_DELETE = (id) => ` https://api.thecatapi.com/v1/favourites/${id}?`;
 
 const botoncito = document.querySelector("button");
 const containerImg = document.querySelector(".random-cats");
 const favoritesContain = document.querySelector(".favorites-cats");
 const spanError = document.querySelector("#error");
+const buttonUplad = document.getElementById('buttonUpload');
 botoncito.addEventListener("click", () => viewRandomCat());
 
 const templateCards = (imgUrl, name, idImg) => {
@@ -22,7 +23,13 @@ const templateCards = (imgUrl, name, idImg) => {
 };
 
 async function viewCat(Apiurl, sectionName, nameButton) {
-  const response = await fetch(Apiurl);
+  const response = await fetch(Apiurl, {
+    method: 'GET',
+    headers:{
+        'X-API-KEY':'live_Tsb8bwOJBKDNjjdJc2XKB3i2c3rOOo2VU6CpHknnj23xp5vm4j8mzHCCINKY2A5f',
+    },
+  });
+  
   const data = await response.json();
 
   if (response.status !== 200) {
@@ -53,6 +60,7 @@ async function saveFavoritesCat(id) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'X-API-KEY':'live_Tsb8bwOJBKDNjjdJc2XKB3i2c3rOOo2VU6CpHknnj23xp5vm4j8mzHCCINKY2A5f'
     },
     body: JSON.stringify({
       image_id: id,
@@ -63,6 +71,9 @@ async function saveFavoritesCat(id) {
  async function deleteFavoritesCat(id) {
    const response = await fetch(API_URL_DELETE(id), {
     method: "DELETE",
+    headers: {
+        'X-API-KEY':'live_Tsb8bwOJBKDNjjdJc2XKB3i2c3rOOo2VU6CpHknnj23xp5vm4j8mzHCCINKY2A5f', 
+    },
  });
 viewFavoriteCat();
   
@@ -80,5 +91,23 @@ function getButtomOfTemplateHTML(botonTagName, starFunction) {
       starFunction(idImgSelect);
     });
   });
+}
+ buttonUplad.addEventListener("click", uploadPhotoCat);
+async function uploadPhotoCat () {
+  const form = document.getElementById('uploadingForm');
+  const formData = new FormData (form);
+  console.log(formData.get('file'));
+
+  const res = await fetch(API_URL_UPLOAD, {
+    method: 'POST',
+    headers: {
+      'X-API-KEY':'live_Tsb8bwOJBKDNjjdJc2XKB3i2c3rOOo2VU6CpHknnj23xp5vm4j8mzHCCINKY2A5f',
+    },
+    body: formData,
+  })
+  const data = await res.json();
+  console.log(data);
+  saveFavoritesCat(data.id);
+
 }
 

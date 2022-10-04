@@ -34,8 +34,10 @@
             color: #EEE3CB;
             font-weight: bolder;
             font-size: 14px;
-            margin-block-end: 15px;
-            margin-inline-start: 20px;
+            margin-block-end: 20px;
+            margin-block-start: 20px;
+            position: relative;
+            right: calc(10vh - 50%);
             cursor: pointer;
             
         }
@@ -76,6 +78,11 @@
             margin-block-start: 40px;
             margin-block-end: 140px;
         }
+        #uploadingForm{
+            text-align: center;
+           margin-block-end: 20px;
+          margin-block-start: 20px;
+        }
         
         .style-main button:hover{
             border: 2px solid whitesmoke;
@@ -98,9 +105,19 @@
         <button id="btn">Generate</button>
     <section class="random-cats style-main">
     </section>
+ 
+    <section id="uploadingCat">
+        <h2> Upload Cat</h2>
+        <form action="" id="uploadingForm">
+        <input id="file" type="file" name="file">
+        <button type="button" id="buttonUpload"> Subir foto </button>
+        </form>
+     </section>
+
     <h2>Cats favorites</h2>
     <section class="favorites-cats style-main">
     </section>  
+
 </main>
 
     <script src="./main.js"></script>
