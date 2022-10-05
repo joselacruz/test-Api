@@ -78,11 +78,20 @@
             margin-block-start: 40px;
             margin-block-end: 140px;
         }
+        #uploadingCat{
+            position: relative;
+        }
         #uploadingForm{
             text-align: center;
            margin-block-end: 20px;
           margin-block-start: 20px;
+          display: flex;
+    justify-content: center;
+   align-items: center;
+    gap: 10px;
+    flex-flow: column-reverse;
         }
+       
         
         .style-main button:hover{
             border: 2px solid whitesmoke;
@@ -94,6 +103,20 @@
         #btn:hover{
             transform: scale(1.5);
         }
+        #prewievCat{
+            display: none;
+            width: 100px;
+        }
+        input#file{
+            color: transparent;
+            width: 134px;
+            position: relative;
+            z-index: 1;
+        }
+        #uploadingForm button{
+            position: relative;
+        }
+      #buttonUpload{display: none;}
 
     </style>
 </head>
@@ -111,6 +134,7 @@
         <form action="" id="uploadingForm">
         <input id="file" type="file" name="file">
         <button type="button" id="buttonUpload"> Subir foto </button>
+        <img id="prewievCat">
         </form>
      </section>
 

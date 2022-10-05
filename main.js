@@ -12,6 +12,8 @@ const favoritesContain = document.querySelector(".favorites-cats");
 const spanError = document.querySelector("#error");
 const buttonUplad = document.getElementById('buttonUpload');
 botoncito.addEventListener("click", () => viewRandomCat());
+const filesLoad = document.getElementById('file');
+const imgTag = document.getElementById('prewievCat');
 
 const templateCards = (imgUrl, name, idImg) => {
   return `<article>
@@ -94,6 +96,8 @@ function getButtomOfTemplateHTML(botonTagName, starFunction) {
 }
  buttonUplad.addEventListener("click", uploadPhotoCat);
 async function uploadPhotoCat () {
+  imgTag.style.display = "none";//Ocultando imagen de previzualizar al  subir foto
+  buttonUpload.style.display = "none"; //Ocultando boton de de click a subir foto
   const form = document.getElementById('uploadingForm');
   const formData = new FormData (form);
   console.log(formData.get('file'));
@@ -108,6 +112,16 @@ async function uploadPhotoCat () {
   const data = await res.json();
   console.log(data);
   saveFavoritesCat(data.id);
-
 }
 
+
+filesLoad.addEventListener("change", showImgPrewiev);
+
+async function showImgPrewiev () {
+  const prewiew = filesLoad.files;
+  console.log("lt", filesLoad.files);
+  const prewiewURL = URL.createObjectURL(prewiew[0]);
+  imgTag.style.display = "block";
+  imgTag.src = prewiewURL;
+  buttonUpload.style.display = "block";
+}
