@@ -1,11 +1,7 @@
-const API = axios.create({
-  baseURL: 'https://api.thecatapi.com/v1'
-});
-API.defaults.headers.common['X-API-KEY'] = 'live_Tsb8bwOJBKDNjjdJc2XKB3i2c3rOOo2VU6CpHknnj23xp5vm4j8mzHCCINKY2A5f';
+
 
 const API_URL_RANDOM =
   "https://api.thecatapi.com/v1/images/search?limit=3&";
-
 const API_URL_FAVORITES = "https://api.thecatapi.com/v1/favourites";
 
 const API_URL_UPLOAD = "https://api.thecatapi.com/v1/images/upload";
@@ -81,9 +77,15 @@ viewFavoriteCat();
 
 //Funcion que carga la logica  para guardar una imagen a favorito
 async function saveFavoritesCat(id) {
-
-  const { data, status } = await API.post('/favourites', {
-    image_id: id,
+  const response = await fetch(API_URL_FAVORITES, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      'X-API-KEY':'live_Tsb8bwOJBKDNjjdJc2XKB3i2c3rOOo2VU6CpHknnj23xp5vm4j8mzHCCINKY2A5f'
+    },
+    body: JSON.stringify({
+      image_id: id,
+    }),
   });
   viewFavoriteCat();
 }
