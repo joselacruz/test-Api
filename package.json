@@ -2,7 +2,7 @@
   "name": "consumo-api-rest",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "deploy": "gh-pages -d src/assets"
   },
