@@ -1,0 +1,202 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box ;
+    background-color: #EEE3CB;
+}
+h1{
+    text-align: center;
+    letter-spacing: 5px;
+    font-weight: lighter;
+    font-size: 40px;
+    margin-block-end: 20px;
+}
+h2{
+    font-weight: bolder;
+    font-size: 25px;
+    text-align: center;
+    letter-spacing: 5px;
+}
+#btn {
+    background-color: #057adc;
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    height: 26px;
+    color: #EEE3CB;
+    font-weight: bolder;
+    font-size: 14px;
+    margin-block-end: 20px;
+    margin-block-start: 20px;
+    right: calc(10vh - 50%);
+    box-shadow: 0px 1px 11px #22282de3;
+    cursor: pointer;    
+}
+
+.main-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.style-main {
+display:flex;
+flex-wrap: wrap;
+gap: 20px;
+justify-content: center;
+margin-block-end: 30px;
+}
+.style-main article{
+    position: relative;
+}
+.style-main figure {
+ width: 150px;
+ height: 150px;
+ margin: 0;
+}
+.style-main button {
+    width: 141px;
+    height: 41px;
+    margin-block-start: 5px;
+    border: none;
+    border-radius: 10px;
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 104px;
+    transition: all 300ms;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    -webkit-text-stroke: 0.10px black;
+    opacity: 0;
+}
+
+
+.random-cats button span{
+    background-image: url(/src/assets/icons/add-to-favorites-5788.svg);
+    display: inline-block;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 27px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+}
+.favorites-cats span{
+    background-image: url(/src/assets/icons/delete-5862.svg);
+    display: inline-block;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 27px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+
+img{
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+#prewievCat{
+    display: none;
+    width: 100px;
+}
+input#file{
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+}
+
+
+#uploadingForm button{
+    position: relative;
+}
+#buttonUpload{display: none;
+width: 79px;
+height: 20px;
+border:  1px solid black;
+font-weight: bolder;
+}
+
+.favorites-cats{
+    margin-block-start: 40px;
+    margin-block-end: 140px;
+}
+#uploadingCat{
+    position: relative;
+}
+#uploadingCat label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #EEE3CB;
+    background-color: #057adc;
+    transition: all 300ms;
+    cursor: pointer;
+    width: 180px;
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: 0px 1px 11px #22282de3;
+    gap: 6px;
+}
+#uploadingCat label span {
+    width: 25px;
+    height: 25px;
+    background-image: url(/src/assets/icons/up-arrow-7164.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
+}
+#uploadingForm{
+    text-align: center;
+   margin-block-end: 20px;
+  margin-block-start: 20px;
+  display: flex;
+justify-content: center;
+align-items: center;
+gap: 10px;
+flex-flow: column-reverse;
+}
+#alert-uploading{
+    display: none;
+    text-align: center;
+}
+#btn:hover,
+#uploadingCat label:hover
+{
+    border: 0.8px solid rgb(5, 5, 5) ;
+}
+#buttonUpload:hover{
+  background-color: #3A001E;
+  color: white; 
+}
+
+.style-main button span:hover {
+    filter: invert(25%) sepia(54%) saturate(3473%) hue-rotate(341deg) brightness(83%) contrast(75%);
+}
+
+.style-main article:hover{
+    transform: scale(1.2);
+}
+.style-main article:hover > figure{
+    opacity: 0.4;
+}
+.style-main article:hover > button {
+    opacity: 1;
+    color: #BF3C3D;
+}

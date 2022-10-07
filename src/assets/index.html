@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cats</title>
+    <link rel="stylesheet" href="./style/style.css">
+</head>
+<body>
+    <main class="main-container">
+        <h1> Cats</h1>
+        <h2>Ramdom</h2>
+        <button id="btn">Generate</button>
+    <section class="random-cats style-main">
+    </section>
+ 
+    <section id="uploadingCat">
+        <h2> Upload Cat</h2>
+        <p id="alert-uploading">Waiting . . .</p>
+        <form action="" id="uploadingForm">
+        <input id="file" type="file" name="file">
+        <label for="file">Choose an image
+            <span></span>
+        </label>
+        <button type="button" id="buttonUpload"> Subir foto 
+        </button>        
+        <img id="prewievCat">
+        </form>
+     </section>
+
+    <h2>Cats favorites</h2>
+    <section class="favorites-cats style-main">
+    </section>  
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./main.js"></script>
+</body>
+
+</html>

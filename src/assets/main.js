@@ -1,3 +1,8 @@
+const API = axios.create({
+  baseURL: 'https://api.thecatapi.com/v1'
+});
+API.defaults.headers.common['X-API-KEY']= 'live_Tsb8bwOJBKDNjjdJc2XKB3i2c3rOOo2VU6CpHknnj23xp5vm4j8mzHCCINKY2A5f';
+
 const API_URL_RANDOM =
   "https://api.thecatapi.com/v1/images/search?limit=3&";
 
@@ -9,18 +14,21 @@ const API_URL_DELETE = (id) => ` https://api.thecatapi.com/v1/favourites/${id}?`
 const botoncito = document.querySelector("button");
 const containerImg = document.querySelector(".random-cats");
 const favoritesContain = document.querySelector(".favorites-cats");
-const spanError = document.querySelector("#error");
 const buttonUplad = document.getElementById('buttonUpload');
 botoncito.addEventListener("click", () => viewRandomCat());
 const filesLoad = document.getElementById('file');
 const imgTag = document.getElementById('prewievCat');
+const alertForUploads = document.querySelector('#alert-uploading');
 
-const templateCards = (imgUrl, name, idImg) => {
+const templateCards = (imgUrl, idImg, name) => {
   return `<article>
     <figure>
     <img src = ${imgUrl} id = "${idImg}">
     </figure>
-    <button class = "btn2"> ${name} </button>
+    <button class = "btn2"> ${name}
+   <span> 
+    </span>  
+    </button>
     </article>`;
 };
 
@@ -38,45 +46,44 @@ async function viewCat(Apiurl, sectionName, nameButton) {
     sectionName.innerHTML = `Hubo un Error ${response.status} ${data.message}`;
   } else {
     const cards = data.map((item) => {
-      return templateCards(item.url || item.image.url, nameButton, item.id);
+      return templateCards(item.url || item.image.url, item.id,nameButton);
     });
     
     sectionName.innerHTML = await cards.join("");
   }
 }
 
+
+
 async function viewRandomCat() {
-  await viewCat(API_URL_RANDOM, containerImg, "Saved Cat and Favorite");
+  await viewCat(API_URL_RANDOM, containerImg,"Add to Favorites");
   getButtomOfTemplateHTML(containerImg, saveFavoritesCat);
 }
 viewRandomCat();
 
 async function viewFavoriteCat() {
-  await viewCat(API_URL_FAVORITES, favoritesContain, "Deleted Cat Favorite");
+  await viewCat(API_URL_FAVORITES, favoritesContain, "Remove from Favorites");
    getButtomOfTemplateHTML(favoritesContain,deleteFavoritesCat);
 }
 viewFavoriteCat();
 
 async function saveFavoritesCat(id) {
-  const response = await fetch(API_URL_FAVORITES, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      'X-API-KEY':'live_Tsb8bwOJBKDNjjdJc2XKB3i2c3rOOo2VU6CpHknnj23xp5vm4j8mzHCCINKY2A5f'
-    },
-    body: JSON.stringify({
-      image_id: id,
-    }),
+
+  const {data , status} = await API.post('/favourites', {
+    image_id: id,
   });
   viewFavoriteCat();
 }
+
+
  async function deleteFavoritesCat(id) {
-   const response = await fetch(API_URL_DELETE(id), {
+
+    const response = await fetch(API_URL_DELETE(id), {
     method: "DELETE",
     headers: {
-        'X-API-KEY':'live_Tsb8bwOJBKDNjjdJc2XKB3i2c3rOOo2VU6CpHknnj23xp5vm4j8mzHCCINKY2A5f', 
-    },
+        'X-API-KEY':'live_Tsb8bwOJBKDNjjdJc2XKB3i2c3rOOo2VU6CpHknnj23xp5vm4j8mzHCCINKY2A5f',     },
  });
+
 viewFavoriteCat();
   
 
@@ -87,17 +94,22 @@ function getButtomOfTemplateHTML(botonTagName, starFunction) {
   obtain.forEach((button) => {
     const bottonEvent = button.getElementsByTagName("button")[0];
     bottonEvent.addEventListener("click", (event) => {
+      
       const idImgSelect =
-        event.path[1].childNodes[1].getElementsByTagName("img")[0].id;
+        event.path[2].childNodes[1].getElementsByTagName("img")[0].id;
         console.log("ID OR" , idImgSelect);
       starFunction(idImgSelect);
     });
   });
 }
  buttonUplad.addEventListener("click", uploadPhotoCat);
-async function uploadPhotoCat () {
+
+ async function uploadPhotoCat () {
   imgTag.style.display = "none";//Ocultando imagen de previzualizar al  subir foto
   buttonUpload.style.display = "none"; //Ocultando boton de de click a subir foto
+  alertForUploads.style.display = "block";
+  alertForUploads.innerText = "Waiting . . .";
+  try{
   const form = document.getElementById('uploadingForm');
   const formData = new FormData (form);
   console.log(formData.get('file'));
@@ -111,9 +123,16 @@ async function uploadPhotoCat () {
   })
   const data = await res.json();
   console.log(data);
-  saveFavoritesCat(data.id);
+  await saveFavoritesCat(data.id);
+  alertForUploads.style.display = "none";
+  }
+  catch{
+    alertForUploads.innerText = "Seleciona una imagen de Gatito valida";
+    setTimeout(()=> {
+      alertForUploads.style.display = "none";
+    },5000)
+  }
 }
-
 
 filesLoad.addEventListener("change", showImgPrewiev);
 
@@ -125,3 +144,4 @@ async function showImgPrewiev () {
   imgTag.src = prewiewURL;
   buttonUpload.style.display = "block";
 }
+
